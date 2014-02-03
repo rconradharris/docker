@@ -10,6 +10,35 @@ Docker Remote API v1.8
 
 .. contents:: Table of Contents
 
+Service Provider Considerations
+===============================
+
+AASP = as a service provider
+
+- Auth
+- Async
+    - Fault/Error delivery
+- Host/Network Awareness
+- Flavor construct
+- Quotas
+- Rate limits
+- RBAC
+- Metadata
+- Pagination
+- Admin policy
+- Steaming files
+
+    AASP, we don't want to stream large amounts of data through API nodes. So
+    streaming data from [Host] -> [API] -> [Client] will not work for us.
+    However, we can implement this transparently to the client by using a 3XX
+    redirect to a proxy server which handles the streaming for the API,
+    similar to what we do with VNC consoles already.
+
+    By using the redirect (maybe 305 - Use Proxy?), the client should be able
+    to perform the rediect automatically, so the data streams back the user as
+    expected.
+
+
 1. Brief introduction
 =====================
 
