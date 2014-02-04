@@ -15,21 +15,43 @@ Service Provider Considerations
 
 AASP = as a service provider
 
+Meta-API Considerations
+-----------------------
+    - Quotas
+        - Will Nova quotas work w/o modification here?
+    - Rate limits
+      - Use Repose here?
+    - Pagination
+        - Already supported with ``limit``, ``since``, and ``before`` params
+
+API Considerations
+------------------
+
 - Auth
 - Async
     - Fault/Error delivery
 - Host/Network Awareness
+
+    - Network Identifier List:
+        List of opaque identifiers, UUIDs,  of networks that the container
+        should be connected to::
+
+        Networks: ['uuid1', 'uuid2']
+
+    - Host Identifier
+        ???
+
+- Keypairs
+    Should this be supported at first?
 - Flavor construct
-- Quotas
-- Rate limits
 - RBAC
 - Metadata
-- Pagination
 - Admin policy
 - Steaming files
 
     AASP, we don't want to stream large amounts of data through API nodes. So
     streaming data from [Host] -> [API] -> [Client] will not work for us.
+
     However, we can implement this transparently to the client by using a 3XX
     redirect to a proxy server which handles the streaming for the API,
     similar to what we do with VNC consoles already.
@@ -130,6 +152,14 @@ List containers
 
 Create a container
 ******************
+
+There's a mismatch between Docker-Create and Nova-Spawn. Nova doesn't have a
+notion of creating an instance without starting it so a Nova-spawn ==
+Docker-Create + Docker-Start.
+
+To workaround this, Docker-Create could translate into inserting a record into
+the Docker-Shim-DB, and Docker-Start would tranlate into a Nova-Spawn command
+(which results in Instance record in Nova-DB and Nova-Spawn call)
 
 .. http:post:: /containers/create
 
