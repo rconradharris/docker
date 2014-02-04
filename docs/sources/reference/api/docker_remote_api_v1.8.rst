@@ -312,6 +312,8 @@ Inspect a container
 List processes running inside a container
 *****************************************
 
+APIEXT: /servers/(id)/top
+
 .. http:get:: /containers/(id)/top
 
         List processes running inside the container ``id``
@@ -512,6 +514,8 @@ Restart a container
 Kill a container
 ****************
 
+APIEXT: /servers/(id)/kill
+
 .. http:post:: /containers/(id)/kill
 
         Kill the container ``id``
@@ -535,6 +539,9 @@ Kill a container
 
 Attach to a container
 *********************
+
+APIEXT: /servers/(id)/attach
+PROXY: Requires redirect to proxy server
 
 .. http:post:: /containers/(id)/attach
 
@@ -612,6 +619,8 @@ Attach to a container
 Wait a container
 ****************
 
+APIEXT: /servers/(id)/wait
+
 .. http:post:: /containers/(id)/wait
 
         Block until container ``id`` stops, then returns the exit code
@@ -664,6 +673,10 @@ Remove a container
 
 Copy files or folders from a container
 **************************************
+
+APIEXT: /servers/(id)/copy
+PROXY: Requires redirect to proxy server
+
 
 .. http:post:: /containers/(id)/copy
 
@@ -1054,6 +1067,8 @@ Search images
 
 Build an image from Dockerfile via stdin
 ****************************************
+
+PROXY: Requires redirect to proxy server
 
 .. http:post:: /build
 
